@@ -2,12 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap');
 
 :root {
-    --primary-glow: #00f5c9;
-    --secondary-glow: #9b34f3;
-    --dark-bg: #0a0f2a;
-    --dark-secondary: #151c40;
-    --light-text: #e0e0e0;
-    --grey-text: #a0a4b8;
+    /* Refined Netflix Theme */
+    --netflix-red: #E50914;
+    --netflix-red-darker: #b30710;
+
+    /* Structured Grey Palette */
+    --netflix-dark-bg: #141414;      /* Main background */
+    --netflix-panel-bg: #222222;     /* Cards & sections */
+    --netflix-text-primary: #ffffff; /* Main headings */
+    --netflix-text-secondary: #e5e5e5;/* Body text */
+    --netflix-text-muted: #8c8c8c;   /* Subtitles, placeholders */
+
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Roboto', sans-serif;
 }
@@ -25,8 +30,8 @@ html {
 
 body {
     font-family: var(--font-primary);
-    background-color: var(--dark-bg);
-    color: var(--light-text);
+    background-color: var(--netflix-dark-bg);
+    color: var(--netflix-text-secondary);
     overflow-x: hidden;
     cursor: none;
 }
@@ -46,12 +51,12 @@ body {
 .cursor-dot {
     width: 8px;
     height: 8px;
-    background-color: var(--primary-glow);
+    background-color: var(--netflix-red);
 }
 .cursor-outline {
     width: 40px;
     height: 40px;
-    border: 2px solid var(--primary-glow);
+    border: 2px solid var(--netflix-red);
     transition: all 0.1s ease-out;
 }
 body:hover .cursor-dot, body:hover .cursor-outline { opacity: 1; }
@@ -69,17 +74,26 @@ body:hover .cursor-dot, body:hover .cursor-outline { opacity: 1; }
     height: 100%;
     display: block;
     z-index: -10;
+    opacity: 0.5; /* Soften the stars */
 }
 #stars { background: transparent url(https://www.script-tutorials.com/demos/360/images/stars.png) repeat top center; animation: move-twink-back 200s linear infinite; }
 #stars2 { background: transparent url(https://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center; animation: move-twink-back 150s linear infinite; }
 #stars3 { background: transparent url(https://www.script-tutorials.com/demos/360/images/clouds.png) repeat top center; animation: move-twink-back 100s linear infinite; }
 
-/* Gradient Text Utility */
+/* Flowing Gradient Text Animation */
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .gradient-text {
-    background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+    background: linear-gradient(90deg, var(--netflix-red), var(--netflix-red-darker), var(--netflix-red));
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradient-flow 5s ease infinite;
 }
 
 /* Header & Navigation */
@@ -88,23 +102,24 @@ header {
     width: 100%;
     top: 0;
     padding: 1.5rem 5%;
-    background: rgba(10, 15, 42, 0.5);
+    background: rgba(20, 20, 20, 0.7); /* Use main bg color with transparency */
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 245, 201, 0.2);
+    border-bottom: 1px solid rgba(229, 9, 20, 0.2);
     z-index: 100;
     transition: background 0.3s ease;
 }
 nav { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: var(--font-secondary); font-size: 2rem; font-weight: 900; color: var(--light-text); }
-.logo span { color: var(--primary-glow); }
+.logo { font-family: var(--font-secondary); font-size: 2rem; font-weight: 900; color: var(--netflix-text-primary); }
+.logo span { color: var(--netflix-red); }
 nav ul { list-style: none; display: flex; gap: 2.5rem; }
-nav a { text-decoration: none; color: var(--light-text); font-weight: 600; position: relative; padding-bottom: 5px; }
+nav a { text-decoration: none; color: var(--netflix-text-muted); font-weight: 600; position: relative; padding-bottom: 5px; transition: all 0.3s ease; }
 nav a::after {
     content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
-    background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+    background: var(--netflix-red);
     transition: width 0.3s ease;
 }
 nav a:hover::after, nav a.active::after { width: 100%; }
+nav a:hover, nav a.active { color: var(--netflix-text-primary); transform: translateY(-3px); }
 
 /* Hero Section */
 #hero {
@@ -116,24 +131,28 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     padding: 6rem 5% 2rem;
 }
 .hero-content { flex: 1.2; }
-.hero-content h3 { font-size: 1.8rem; color: var(--grey-text); }
-.hero-content h1 { font-family: var(--font-secondary); font-size: 5rem; margin: 0.5rem 0; line-height: 1.1; }
-.hero-content h2 { font-size: 2.2rem; margin-bottom: 1rem; }
-.hero-subtitle { font-size: 1.1rem; color: var(--grey-text); max-width: 600px; margin-bottom: 2rem; }
-.typing-text { color: var(--primary-glow); }
+.hero-content h3 { font-size: 1.8rem; color: var(--netflix-text-muted); }
+.hero-content h1 { font-family: var(--font-secondary); font-size: 5rem; margin: 0.5rem 0; line-height: 1.1; color: var(--netflix-text-primary); }
+.hero-content h2 { font-size: 2.2rem; margin-bottom: 1rem; color: var(--netflix-text-secondary); }
+.hero-subtitle { font-size: 1.1rem; color: var(--netflix-text-muted); max-width: 600px; margin-bottom: 2rem; }
+.typing-text { color: var(--netflix-red); }
 .hero-image { flex: 0.8; display: flex; justify-content: center; align-items: center; }
 .image-wrapper {
     width: 350px;
     height: 350px;
     position: relative;
     border-radius: 50%;
+    /* Added for tilt effect to look better */
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
 }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 .image-wrapper::before {
     content: '';
     position: absolute;
     inset: -5px;
     border-radius: 50%;
-    background: conic-gradient(from 90deg, var(--primary-glow), transparent, var(--secondary-glow), transparent, var(--primary-glow));
+    background: conic-gradient(from 90deg, var(--netflix-red), transparent, var(--netflix-red-darker), transparent, var(--netflix-red));
     animation: rotate 4s linear infinite;
     z-index: 1;
 }
@@ -143,239 +162,928 @@ nav a:hover::after, nav a.active::after { width: 100%; }
     border-radius: 50%;
     position: relative;
     z-index: 2;
-    background: var(--dark-bg);
+    background: var(--netflix-dark-bg);
     padding: 5px;
 }
-@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 .social-links { margin-bottom: 2.5rem; }
 .social-links a {
-    color: var(--light-text);
+    color: var(--netflix-text-muted);
     font-size: 1.8rem;
     margin-right: 1.5rem;
-    transition: color 0.3s, transform 0.3s;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
 }
-.social-links a:hover { color: var(--primary-glow); transform: translateY(-5px); }
+.social-links a:hover {
+    color: var(--netflix-red);
+    transform: translateY(-5px);
+    text-shadow: 0 0 15px var(--netflix-red);
+}
+
+/* Pulsing Button Animation */
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px rgba(229, 9, 20, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(229, 9, 20, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(229, 9, 20, 0.3); }
+}
 
 .cta-button {
-    background: transparent;
-    border: 2px solid var(--primary-glow);
-    color: var(--primary-glow);
+    background: var(--netflix-red);
+    border: 2px solid var(--netflix-red);
+    color: var(--netflix-text-primary);
     padding: 0.8rem 1.6rem;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 245, 201, 0.3);
+    animation: pulse 2.5s infinite;
 }
 .cta-button:hover {
-    background: var(--primary-glow);
-    color: var(--dark-bg);
-    box-shadow: 0 0 25px rgba(0, 245, 201, 0.7);
-    transform: translateY(-3px);
+    background: var(--netflix-red-darker);
+    color: var(--netflix-text-primary);
+    transform: translateY(-3px) scale(1.05);
+    animation-play-state: paused;
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.7);
 }
 
 /* General Section Styles */
 section { padding: 6rem 5%; max-width: 1200px; margin: 0 auto; }
-section h2 { text-align: center; font-family: var(--font-secondary); font-size: 3rem; font-weight: 900; margin-bottom: 4rem; letter-spacing: 2px; }
-.section-subtitle { text-align: center; margin: -3rem 0 3rem; color: var(--grey-text); font-size: 1.1rem; }
+section h2 { text-align: center; font-family: var(--font-secondary); font-size: 3rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: 2px; }
+.section-subtitle { text-align: center; margin-bottom: 3rem; color: var(--netflix-text-muted); font-size: 1.1rem; }
 
-/* About Section */
-.about-container { display: flex; gap: 3rem; align-items: center; }
-.about-text { flex: 1.5; }
-.about-highlights { flex: 1; background: var(--dark-secondary); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--primary-glow); }
-.about-highlights h3 { color: var(--primary-glow); margin-bottom: 1rem; }
-.about-highlights ul { list-style: none; }
-.about-highlights li { margin-bottom: 0.8rem; }
-.about-highlights i { color: var(--primary-glow); margin-right: 10px; }
+/* ======================================================== */
+/* =======      AMAZING 'ABOUT ME' STYLES           ======= */
+/* ======================================================== */
 
-/* Education Timeline */
-.timeline { position: relative; max-width: 800px; margin: 0 auto; }
-.timeline::after {
-    content: ''; position: absolute; width: 4px; top: 0; bottom: 0; left: 50%;
-    margin-left: -2px;
-    background: linear-gradient(to bottom, var(--primary-glow), var(--secondary-glow));
-}
-.timeline-item { padding: 10px 40px; position: relative; width: 50%; }
-.timeline-item:nth-child(odd) { left: 0; }
-.timeline-item:nth-child(even) { left: 50%; }
-.timeline-dot {
-    content: ''; position: absolute; width: 20px; height: 20px;
-    right: -10px; background-color: var(--dark-bg);
-    border: 4px solid var(--primary-glow);
-    top: 25px; border-radius: 50%; z-index: 1;
-}
-.timeline-item:nth-child(even) .timeline-dot { left: -10px; }
-.timeline-content { padding: 20px 30px; background: rgba(21, 28, 64, 0.8); backdrop-filter: blur(5px); border: 1px solid rgba(0, 245, 201, 0.2); position: relative; border-radius: 6px; }
-
-/* Projects Section */
-.project-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-.project-card {
-    background: rgba(21, 28, 64, 0.5); backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 245, 201, 0.2);
-    border-radius: 15px; padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 245, 201, 0.2);
-}
-.project-card h3 { color: var(--primary-glow); font-size: 1.5rem; }
-.project-card p { margin: 1rem 0; color: var(--grey-text); }
-.tech-stack { margin: 1.5rem 0; }
-.tech-stack span { background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; margin-right: 5px; }
-.project-card a { color: var(--primary-glow); text-decoration: none; font-weight: bold; }
-
-/* --- REVAMPED Skills Section --- */
-.skills-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem 2rem;
-}
-.skill-category {
-    background: var(--dark-secondary);
-    padding: 2rem;
+#about .about-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    background-color: var(--netflix-panel-bg); /* Darker background */
+    border: 1px solid #2a2a2a;
     border-radius: 15px;
-    border: 1px solid rgba(155, 52, 243, 0.2);
-    transition: all 0.3s ease;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-.skill-category:hover {
-    box-shadow: 0 0 25px rgba(155, 52, 243, 0.3);
-    border-color: rgba(155, 52, 243, 0.5);
+
+#about .about-narrative,
+#about .about-principles {
+    flex: 1;
 }
-.skill-category h3 {
-    font-size: 1.5rem;
-    color: var(--primary-glow);
+
+/* Enhanced narrative paragraph styling */
+#about .about-narrative p {
+    color: var(--netflix-text-secondary);
+    line-height: 1.8; /* Increased line spacing */
     margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-glow);
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
-.skill-card {
+
+/* The first sentence hook */
+#about .about-narrative p:first-of-type {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+#about .about-principles {
+    padding-left: 2rem;
+    border-left: 1px solid #333; /* Visual separator */
+}
+
+.principle-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1rem 0; /* Changed padding for a cleaner look */
+    margin-bottom: 0.5rem; /* Reduced margin */
+    border-left: 4px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border-radius: 8px; /* Added for the glow effect */
+    padding-left: 1rem;
+}
+
+.principle-card:hover {
+    transform: translateX(10px) scale(1.02);
+    border-color: var(--netflix-red);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); /* Glowing effect */
+}
+
+.principle-icon i {
+    font-size: 1.8rem; /* Slightly smaller icon */
+    color: var(--netflix-red);
+    margin-top: 5px;
+    width: 30px; /* Ensures alignment */
+    text-align: center;
+}
+
+.principle-text h4 {
+    font-size: 1.1rem;
+    color: var(--netflix-text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.principle-text p {
+    font-size: 0.9rem;
+    color: var(--netflix-text-muted);
+    line-height: 1.5;
+}
+/* ======================================================== */
+/* =======   ENHANCED WORK EXPERIENCE SECTION STYLES  ======= */
+/* ======================================================== */
+
+#experience .timeline-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.experience-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
     margin-bottom: 1rem;
-    position: relative;
 }
-.skill-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 0.5rem;
+
+.company-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: contain;
+    background-color: #fff; /* Add a white background if the logo is transparent */
+    padding: 4px;
+}
+
+.experience-title h3 {
+    color: var(--netflix-text-primary);
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.experience-title p {
+    color: var(--netflix-text-muted);
+    font-size: 1rem;
     font-weight: 600;
 }
-.skill-header i { font-size: 1.8rem; }
-.skill-bar {
-    height: 8px;
+
+.experience-details {
+    list-style-position: outside;
+    padding-left: 1.25rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Pushes footer to the bottom */
+}
+
+.experience-details li {
+    color: var(--netflix-text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.experience-footer {
+    margin-top: auto; /* Aligns the button to the bottom */
+    text-align: right;
+}
+
+.certificate-button {
+    display: inline-block;
+    background-color: transparent;
+    border: 2px solid var(--netflix-red);
+    color: var(--netflix-red);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.certificate-button:hover {
+    background-color: var(--netflix-red);
+    color: var(--netflix-text-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+}
+
+.certificate-button i {
+    margin-left: 0.5rem;
+}
+/* Education Timeline */
+#education .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+#education .timeline::after {
+    content: ''; position: absolute; width: 4px; top: 0; bottom: 0; left: 50%;
+    margin-left: -2px;
+    background: linear-gradient(to bottom, var(--netflix-red), var(--netflix-red-darker));
+}
+#education .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
+#education .timeline-item:nth-child(odd) { left: 0; }
+#education .timeline-item:nth-child(even) { left: 50%; }
+#education .timeline-dot {
+    content: ''; position: absolute; width: 20px; height: 20px;
+    right: -10px; background-color: var(--netflix-dark-bg);
+    border: 4px solid var(--netflix-red);
+    top: 25px; border-radius: 50%; z-index: 1;
+}
+#education .timeline-item:nth-child(even) .timeline-dot { left: -10px; }
+#education .timeline-content { padding: 20px 30px; background: var(--netflix-panel-bg); border: 1px solid rgba(229, 9, 20, 0.2); position: relative; border-radius: 6px; }
+#education .timeline-content h3 { color: var(--netflix-text-primary); }
+#education .timeline-content p { color: var(--netflix-text-secondary); }
+
+/* Keyframe animation for blinking effect */
+@keyframes dotBlink {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); /* Start and end with no glow */
+        background-color: var(--netflix-red);
+    }
+    50% {
+        box-shadow: 0 0 15px 5px rgba(229, 9, 20, 0.9); /* Full glow in the middle */
+        background-color: var(--netflix-red-bright); /* Slightly brighter red */
+    }
+}
+
+/* Apply blinking animation only to education timeline dots */
+#education .timeline-dot {
+    animation: dotBlink 1s infinite alternate; /* 2s duration, repeats infinitely, alternates direction */
+}
+/* ======================================================== */
+/* =======    HORIZONTAL PROJECT CARD SECTION STYLES  ======= */
+/* ======================================================== */
+
+#projects .project-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Each card takes a full row */
+    gap: 2.5rem; /* Increased gap between cards */
+}
+
+.project-card {
+    background-color: var(--netflix-panel-bg);
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex; /* This is the key change for horizontal layout */
+    align-items: stretch; /* Makes columns equal height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.project-image-container {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 40%; /* Image container takes 40% of the card width */
+}
+
+.project-image-container img {
     width: 100%;
-    background-color: rgba(10, 15, 42, 0.8);
-    border-radius: 4px;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image-container img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    padding: 2rem; /* Increased padding */
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Content area takes the remaining space */
+}
+
+.project-category {
+    color: var(--netflix-red);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.project-content h3 {
+    color: var(--netflix-text-primary);
+    font-size: 1.6rem; /* Slightly larger title */
+    margin-bottom: 0.75rem;
+}
+
+.project-description {
+    color: var(--netflix-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Pushes links to the bottom */
+}
+
+.project-tech-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.project-tech-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--netflix-text-muted);
+    font-size: 0.9rem;
+}
+
+.project-tech-list i {
+    font-size: 1.5rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto; /* Pushes to the bottom */
+}
+
+.project-button-primary,
+.project-button-secondary {
+    flex: 1; 
+    text-align: center;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--netflix-red);
+}
+
+.project-button-primary {
+    background-color: var(--netflix-red);
+    color: var(--netflix-text-primary);
+}
+
+.project-button-primary:hover {
+    background-color: var(--netflix-red-darker);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+}
+
+.project-button-secondary {
+    background-color: transparent;
+    color: var(--netflix-red);
+}
+
+.project-button-secondary:hover {
+    background-color: var(--netflix-red);
+    color: var(--netflix-text-primary);
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 900px) {
+    .project-card {
+        flex-direction: column; /* Stacks image on top of content */
+    }
+    .project-image-container {
+        height: 220px; /* Re-introduce fixed height for vertical layout */
+    }
+}
+
+/* ======================================================== */
+/* =======      FULL-WIDTH SKILLS SECTION STYLES      ======= */
+/* ======================================================== */
+
+/* 1. Make the main section full-width */
+#skills {
+    width: 100%;
+    padding: 6rem 0; /* Vertical padding, no horizontal */
+    background-color: var(--netflix-panel-bg); /* A slightly different background to stand out */
+    border-top: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+/* 2. Center the content inside the section */
+.skills-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%; /* Re-apply the horizontal padding here */
+}
+
+/* These styles for the grid and cards remain the same */
+#skills .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+}
+
+#skills .skill-card {
+    background-color: transparent;
+    height: 220px;
+    perspective: 1000px;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#skills .skill-card:hover,
+#skills .skill-card:focus-within {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
+    z-index: 10;
+}
+
+#skills .skill-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.5, 0, 0.25, 1);
+    transform-style: preserve-3d;
+}
+
+#skills .skill-card:hover .skill-card-inner,
+#skills .skill-card:focus-within .skill-card-inner {
+    transform: rotateY(180deg);
+}
+
+#skills .skill-card-front,
+#skills .skill-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* Changed background to be darker than the new section background */
+    background-color: #1c1c1c; 
+    border-radius: 8px;
+}
+
+#skills .skill-card-front {
+    gap: 1rem;
+}
+
+#skills .skill-card-front i {
+    font-size: 4rem;
+}
+
+#skills .skill-card-front span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--netflix-text-primary);
+}
+
+#skills .skill-card-back {
+    transform: rotateY(180deg);
+    padding: 1rem;
+    text-align: center;
+    gap: 0.8rem;
+    border: 2px solid var(--netflix-red);
+}
+
+#skills .skill-card-back h3 {
+    color: var(--netflix-text-primary);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#skills .skill-card-back .proficiency-level {
+    background-color: var(--netflix-red);
+    color: var(--netflix-text-primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#skills .skill-card-back .experience-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--netflix-text-muted);
+}
+/* Hides the proficiency tags on the skill cards */
+#skills .skill-card-back .proficiency-level {
+    display: none;
+}
+/* ======================================================== */
+/* ======= 3D FLIP CERTIFICATE CAROUSEL SECTION ======== */
+/* ======================================================== */
+#achievements {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+.certificate-carousel {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+.certificate-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 2rem;
+    padding: 2rem 5vw;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.certificate-container::-webkit-scrollbar {
+    display: none;
+}
+.certificate-card {
+    flex: 0 0 80%;
+    max-width: 350px;
+    height: 280px;
+    background-color: transparent;
+    border: none;
+    perspective: 1000px;
+    scroll-snap-align: center;
+}
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+}
+.certificate-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background: var(--netflix-panel-bg);
+    border-radius: 10px;
+    border: 1px solid rgba(229, 9, 20, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+}
+.card-back {
+    transform: rotateY(180deg);
+    padding: 0;
     overflow: hidden;
 }
-.skill-level {
+.card-back img {
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
-    border-radius: 4px;
-    position: relative;
-    transition: width 0.8s ease-out;
+    object-fit: contain;
+    background-color: #fff;
 }
-.skill-level::after {
-    content: attr(data-level);
-    position: absolute;
-    right: 0;
-    top: -25px;
-    background: var(--dark-bg);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    color: var(--primary-glow);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
+.card-front .cert-icon {
+    font-size: 3rem;
+    color: var(--netflix-red);
+    margin-bottom: 1rem;
 }
-.skill-card:hover .skill-level::after {
+.card-front h3 {
+    color: var(--netflix-text-primary);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.card-front .cert-issuer {
+    color: var(--netflix-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.card-front .cert-cta {
+    display: inline-block;
+    background: #333;
+    color: var(--netflix-text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.certificate-card:hover .card-front .cert-cta {
+    background: var(--netflix-red);
+    color: var(--netflix-text-primary);
+}
+.carousel-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.arrow-btn {
+    background-color: var(--netflix-panel-bg);
+    border: 1px solid #333;
+    color: var(--netflix-text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.arrow-btn:hover {
+    background-color: var(--netflix-red);
+    color: var(--netflix-text-primary);
+    border-color: var(--netflix-red);
+}
+.arrow-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+.scroll-dots {
+    text-align: center;
+}
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: #444;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.dot.active {
+    background-color: var(--netflix-red);
+    transform: scale(1.2);
+}
+
+/* ======================================================== */
+/* =======         NEW CODING STATS HUB STYLES      ======= */
+/* ======================================================== */
+
+:root {
+    /* Platform Brand Colors */
+    --leetcode-orange: #FFA116;
+    --gfg-green: #34A853;
+    --hackerrank-green: #2EC866;
+    --codechef-brown: #964B00;
+}
+
+.stats-hub-container {
+    background-color: var(--netflix-panel-bg);
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.total-stats {
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 2rem;
+}
+
+.total-stats-value {
+    font-family: var(--font-secondary);
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--netflix-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+#total-solved-count {
+    background: linear-gradient(90deg, var(--netflix-red), var(--leetcode-orange), var(--gfg-green));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-flow 6s ease infinite;
+}
+
+.total-stats-label {
+    font-size: 1.2rem;
+    color: var(--netflix-text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.platform-stat-card {
+    background-color: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.platform-stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.platform-header i {
+    font-size: 2rem;
+}
+
+.platform-name {
+    font-size: 1.5rem;
+    color: var(--netflix-text-primary);
+}
+
+.stat-number {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--netflix-text-secondary);
+}
+
+.stat-description {
+    font-size: 0.9rem;
+    color: var(--netflix-text-muted);
+    flex-grow: 1; /* Pushes the 'View Profile' link down */
+}
+
+.view-profile-link {
+    color: var(--netflix-text-muted);
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    opacity: 0.7;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.platform-stat-card:hover .view-profile-link {
+    opacity: 1;
+}
+.view-profile-link i {
+    transition: transform 0.3s ease;
+}
+.platform-stat-card:hover .view-profile-link i {
+    transform: translateX(5px);
+}
+
+
+/* Platform Specific Hover Effects */
+.platform-stat-card.leetcode:hover { border-color: var(--leetcode-orange); }
+.platform-stat-card.leetcode .platform-header i,
+.platform-stat-card.leetcode:hover .view-profile-link { color: var(--leetcode-orange); }
+
+.platform-stat-card.gfg:hover { border-color: var(--gfg-green); }
+.platform-stat-card.gfg .platform-header i,
+.platform-stat-card.gfg:hover .view-profile-link { color: var(--gfg-green); }
+
+.platform-stat-card.hackerrank:hover { border-color: var(--hackerrank-green); }
+.platform-stat-card.hackerrank .platform-header i,
+.platform-stat-card.hackerrank:hover .view-profile-link { color: var(--hackerrank-green); }
+
+.platform-stat-card.codechef:hover { border-color: var(--codechef-brown); }
+.platform-stat-card.codechef .platform-header i,
+.platform-stat-card.codechef:hover .view-profile-link { color: var(--codechef-brown); }
+/* ======================================================== */
+/* =======         NEW CONTACT SECTION STYLES         ======= */
+/* ======================================================== */
+
+#contact .contact-container {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: flex-start;
+}
+
+#contact .contact-details,
+#contact .contact-form-wrapper {
+    flex: 1; /* Each column takes up half the space */
+}
+
+#contact .contact-details h3,
+#contact .contact-form-wrapper h3 {
+    color: var(--netflix-text-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-secondary);
+}
+
+#contact .contact-details p {
+    color: var(--netflix-text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--netflix-text-secondary);
+    font-size: 1.1rem;
+}
+
+.contact-info-item i {
+    font-size: 1.5rem;
+    color: var(--netflix-red);
+}
+
+.contact-info-item a {
+    color: var(--netflix-text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info-item a:hover {
+    color: var(--netflix-red);
+}
+
+.social-links-contact {
+    margin-top: 2rem;
+}
+
+.social-links-contact a {
+    color: var(--netflix-text-muted);
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-links-contact a:hover {
+    color: var(--netflix-red);
+    transform: translateY(-5px);
+}
+
+/* Ensure the contact button pulses with fire */
+#contact form .cta-button {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* ======================================================== */
+/* =======      REFINED CONTACT FORM STYLES         ======= */
+/* ======================================================== */
+
+/* Style for the input fields and textarea */
+#contact input,
+#contact textarea {
+    background-color: var(--netflix-panel-bg); /* Dark background: #222 */
+    border: 2px solid #444; /* Slightly visible border */
+    color: var(--netflix-text-secondary); /* Light text color: #e5e5e5 */
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style for the placeholder text (e.g., "Your Name") */
+#contact input::placeholder,
+#contact textarea::placeholder {
+    color: var(--netflix-text-muted); /* Muted grey color: #8c8c8c */
     opacity: 1;
 }
 
-/* --- NEW Achievements Section --- */
-#achievements {
-    background: linear-gradient(145deg, var(--dark-secondary), #100a1f);
-    border-radius: 15px;
-}
-.achievements-list {
-    list-style: none;
-    max-width: 800px;
-    margin: 0 auto;
-}
-.achievements-list li {
-    background: var(--dark-bg);
-    margin-bottom: 1rem;
-    padding: 1.2rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-glow);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    transition: all 0.3s ease;
-}
-.achievements-list li:hover {
-    transform: translateX(10px);
-    box-shadow: 0 5px 15px rgba(0, 245, 201, 0.15);
-}
-.achievements-list i {
-    color: var(--primary-glow);
-    margin-right: 15px;
-}
-
-/* --- NEW Coding Profiles Section --- */
-.profile-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-}
-.profile-link {
-    background: var(--dark-secondary);
-    color: var(--light-text);
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-.profile-link i { font-size: 1.5rem; }
-.profile-link:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(10, 15, 42, 0.5);
-}
-.profile-link.leetcode:hover { border-color: #ffa116; color: #ffa116; }
-.profile-link.gfg:hover { border-color: #2f8d46; color: #2f8d46; }
-.profile-link.hackerrank:hover { border-color: #1ba94c; color: #1ba94c; }
-.profile-link.codechef:hover { border-color: #5B4638; color: #d0c5be; }
-
-
-/* Contact Section */
-#contact p { text-align: center; margin-bottom: 2rem; color: var(--grey-text); }
-#contact form { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto; }
-#contact input, #contact textarea {
-    background: var(--dark-secondary);
-    border: 2px solid transparent;
-    border-radius: 5px; padding: 1rem;
-    color: var(--light-text); font-family: var(--font-primary);
-    transition: border-color 0.3s;
-}
-#contact input:focus, #contact textarea:focus {
+/* Glowing "fire" effect when you click into a field */
+#contact input:focus,
+#contact textarea:focus {
     outline: none;
-    border-color: var(--primary-glow);
+    border-color: var(--netflix-red); /* Red border on focus */
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5); /* Red glow effect */
 }
-#contact button { align-self: center; }
+
+/* Ensure the submit button is full-width and styled correctly */
+#contact .cta-button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Allow vertical resizing for the message box only */
+#contact textarea {
+    resize: vertical;
+}
+/* Add space between form fields */
+#contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Adjust this value to increase or decrease the space */
+}
+/* Responsive adjustments for the contact section */
+@media (max-width: 992px) {
+    #contact .contact-container {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
+}
 
 /* Footer */
-footer { text-align: center; padding: 2rem; color: var(--grey-text); border-top: 1px solid rgba(0, 245, 201, 0.1); }
+footer { text-align: center; padding: 2rem; color: var(--netflix-text-muted); border-top: 1px solid rgba(229, 9, 20, 0.1); }
 
 /* Scroll Animations */
 .hidden {
@@ -390,18 +1098,18 @@ footer { text-align: center; padding: 2rem; color: var(--grey-text); border-top:
     #hero { flex-direction: column; text-align: center; }
     .hero-content h1 { font-size: 4rem; }
     .hero-subtitle { margin: 0 auto 2rem; }
-    .about-container { flex-direction: column; }
-    .skills-container { grid-template-columns: 1fr; }
+    #about .about-container { flex-direction: column; }
 }
 
 @media (max-width: 768px) {
-    nav ul { display: none; } /* Basic mobile nav handling, can be improved with a burger menu */
+    nav ul { display: none; }
     .hero-content h1 { font-size: 3rem; }
     .hero-content h2 { font-size: 1.8rem; }
-    .timeline::after { left: 10px; }
-    .timeline-item { width: 100%; padding-left: 40px; padding-right: 0; }
-    .timeline-item:nth-child(even) { left: 0; }
-    .timeline-dot { left: 0; }
-    .timeline-item:nth-child(even) .timeline-dot { left: 0; }
-    .project-container { grid-template-columns: 1fr; }
+    #education .timeline::after { left: 10px; }
+    #education .timeline-item { width: 100%; padding-left: 40px; padding-right: 0; }
+    #education .timeline-item:nth-child(even) { left: 0; }
+    #education .timeline-dot { left: 0; }
+    #education .timeline-item:nth-child(even) .timeline-dot { left: 0; }
+    #projects .project-container { grid-template-columns: 1fr; }
+    #skills .skills-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 }
